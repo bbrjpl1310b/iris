@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 
-from iris.model._subject import Subject
+from iris.models._subject import Subject
 
 
 class GradeAverage(BaseModel):

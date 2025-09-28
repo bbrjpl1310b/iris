@@ -27,7 +27,7 @@ from iris._exceptions import (
 )
 from iris._utils import get_encoded_path
 from iris.credentials import ICredential
-from iris.model import EnvelopeResponse
+from iris.models import EnvelopeResponse
 
 USER_AGENT = "Dart/3.8 (dart:io)"
 API_VERSION = 1

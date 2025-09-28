@@ -2,7 +2,7 @@ from datetime import date, datetime
 
 from pydantic import BaseModel, Field
 
-from iris.model._employee import Employee
+from iris.models._employee import Employee
 
 
 class NoteCategory(BaseModel):

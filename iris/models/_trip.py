@@ -2,7 +2,7 @@ from datetime import date
 
 from pydantic import BaseModel, Field
 
-from iris.model._timeslot import Timeslot
+from iris.models._timeslot import Timeslot
 
 
 class Trip(BaseModel):

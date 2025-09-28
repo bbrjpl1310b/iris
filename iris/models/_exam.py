@@ -2,8 +2,8 @@ from datetime import datetime
 
 from pydantic import BaseModel, Field
 
-from iris.model._employee import Employee
-from iris.model._subject import Subject
+from iris.models._employee import Employee
+from iris.models._subject import Subject
 
 
 class Exam(BaseModel):

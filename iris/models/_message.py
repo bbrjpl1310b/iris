@@ -2,7 +2,7 @@ from datetime import datetime
 
 from pydantic import BaseModel, Field
 
-from iris.model._attachment import Attachment
+from iris.models._attachment import Attachment
 
 
 class MessageAddressExtras(BaseModel):

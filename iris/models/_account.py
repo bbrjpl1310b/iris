@@ -2,7 +2,7 @@ from datetime import date, time
 
 from pydantic import BaseModel, Field
 
-from iris.model._addressbook import Address
+from iris.models._addressbook import Address
 
 
 class AccountLinks(BaseModel):
@@ -81,8 +81,8 @@ class Account(BaseModel):
     top_level_partition: str = Field(alias="TopLevelPartition")
     partition: str = Field(alias="Partition")
     links: AccountLinks = Field(alias="Links")
-    class_display: str = Field(alias="ClassDisplay")
-    info_display: str = Field(alias="InfoDisplay")
+    class_display: str | None = Field(alias="ClassDisplay")
+    info_display: str | None = Field(alias="InfoDisplay")
     login: any = Field(alias="Login")
     unit: Unit = Field(alias="Unit")
     constituent_unit: ConstituentUnit = Field(alias="ConstituentUnit")
@@ -91,6 +91,7 @@ class Account(BaseModel):
     pupil: Pupil = Field(alias="Pupil")
     caretaker_id: int | None = Field(alias="CaretakerId")
     periods: list[Period] = Field(alias="Periods")
+    journal: Journal | None = Field(alias="Journal")
     constraints: Constraints = Field(alias="Constraints")
     state: int = Field(alias="State")
     message_box: MessageBox | None = Field(alias="MessageBox")

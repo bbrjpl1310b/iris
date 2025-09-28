@@ -2,12 +2,12 @@ from datetime import date, datetime
 
 from pydantic import BaseModel, Field
 
-from iris.model._clazz import Clazz
-from iris.model._distribution import Distribution
-from iris.model._employee import Employee
-from iris.model._room import Room
-from iris.model._subject import Subject
-from iris.model._timeslot import Timeslot
+from iris.models._clazz import Clazz
+from iris.models._distribution import Distribution
+from iris.models._employee import Employee
+from iris.models._room import Room
+from iris.models._subject import Subject
+from iris.models._timeslot import Timeslot
 
 
 class ScheduleChange(BaseModel):

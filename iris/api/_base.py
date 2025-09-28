@@ -3,7 +3,7 @@ from datetime import date, datetime
 
 from iris._http_client import HttpClient
 from iris.credentials import ICredential
-from iris.model import (
+from iris.models import (
     Account,
     Address,
     Announcement,

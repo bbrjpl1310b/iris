@@ -21,7 +21,10 @@ from iris.models import (
     Note,
     Message,
     Schedule,
+    ScheduleExtra,
     SchoolInfo,
+    PresenceExtra,
+    PresenceExtraInfo,
     PresenceMonthStats,
     PresenceSubjectStats,
     PushSetting,
@@ -428,6 +431,52 @@ class IrisApi(ABC):
         )
         return [Lesson.model_validate(lesson) for lesson in envelope]
 
+    async def get_presence_extra(
+            self,
+            rest_url: str,
+            pupil_id: int,
+            date_from: date,
+            date_to: date,
+            last_sync_date: datetime = EPOCH_START_DATETIME,
+            last_id: int = INT_MIN,
+            page_size: int = DEFAULT_PAGE_SIZE
+    ):
+        envelope = await self._http.request(
+            method="GET",
+            rest_url=rest_url,
+            pupil_id=pupil_id,
+            endpoint="mobile/presence/extra/byPupil",
+            query={
+                "pupilId": pupil_id,
+                "dateFrom": date_from,
+                "dateTo": date_to,
+                "lastSyncDate": last_sync_date,
+                "lastId": last_id,
+                "pageSize": page_size,
+            },
+        )
+        return [PresenceExtra.model_validate(extra) for extra in envelope]
+
+    async def get_presence_extra_info(
+            self,
+            rest_url: str,
+            pupil_id: int,
+            weak_ref_id: int,
+            type_: int
+    ):
+        envelope = await self._http.request(
+            method="GET",
+            rest_url=rest_url,
+            pupil_id=pupil_id,
+            endpoint="mobile/presence/extra/info",
+            query={
+                "pupilId": pupil_id,
+                "weakRefId": weak_ref_id,
+                "type": type_
+            },
+        )
+        return PresenceExtraInfo.model_validate(envelope)
+
     async def get_presence_month_stats(
             self, rest_url: str, pupil_id: int, period_id: int
     ):
@@ -507,6 +556,32 @@ class IrisApi(ABC):
             },
         )
         return [Schedule.model_validate(schedule) for schedule in envelope]
+
+    async def get_schedule_extra(
+            self,
+            rest_url: str,
+            pupil_id: int,
+            date_from: date,
+            date_to: date,
+            last_sync_date: datetime = EPOCH_START_DATETIME,
+            last_id: int = INT_MIN,
+            page_size: int = DEFAULT_PAGE_SIZE,
+    ):
+        envelope = await self._http.request(
+            method="GET",
+            rest_url=rest_url,
+            pupil_id=pupil_id,
+            endpoint="mobile/schedule/extra/withchanges/byPupil",
+            query={
+                "pupilId": pupil_id,
+                "dateFrom": date_from,
+                "dateTo": date_to,
+                "lastSyncDate": last_sync_date,
+                "lastId": last_id,
+                "pageSize": page_size,
+            },
+        )
+        return [ScheduleExtra.model_validate(schedule) for schedule in envelope]
 
     async def get_school_info(
             self,

@@ -30,11 +30,15 @@ from ._meal_menu import MealMenu, MealMenuEntry
 from ._meeting import Meeting
 from ._message import Message, MessageAddress, MessageAddressExtras
 from ._note import Note, NoteCategory
+from ._presence_extra import PresenceExtra
+from ._presence_extra_info import PresenceExtraInfo
 from ._presence_month_stats import PresenceMonthStats
 from ._presence_subject_stats import PresenceSubjectStats
+from ._presence_type import PresenceType
 from ._push_setting import PushSetting
 from ._room import Room
 from ._schedule import Schedule, ScheduleChange, ScheduleSubstitution
+from ._schedule_extra import ScheduleExtra, ScheduleExtraSubstitution
 from ._school_info import SchoolInfo
 from ._subject import Subject
 from ._teacher import Teacher

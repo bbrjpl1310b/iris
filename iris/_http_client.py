@@ -1,6 +1,5 @@
 import json
 from datetime import datetime, date
-from urllib.parse import urlencode, quote
 from uuid import uuid4
 
 from aiohttp import ClientSession
@@ -47,7 +46,7 @@ class HttpClient:
         self._app_version_code = app_version_code
         self._client = ClientSession(skip_auto_headers={"Accept", "Content-Length"})
 
-    def _serialize_query(self, query: dict[str, any]):
+    def _serialize_query(self, query: dict[str, any]) -> dict[str, str]:
         datetime_format = "%Y-%m-%d %H:%M:%S"
         date_format = "%Y-%m-%d"
 
@@ -61,12 +60,7 @@ class HttpClient:
                 stringify[key] = value.strftime(date_format)
             else:
                 stringify[key] = str(value)
-        return urlencode(
-            stringify,
-            quote_via=lambda s, safe, encoding=None, errors=None: quote(
-                s, safe="", encoding=encoding, errors=errors
-            ),
-        )
+        return stringify
 
     def _build_body(self, envelope: any):
         now = datetime.now()
@@ -117,15 +111,17 @@ class HttpClient:
             verify_response: bool = True
     ):
         url = f"{rest_url}/{endpoint}"
-        if query:
-            url += f"?{self._serialize_query(query)}"
-
+        params = self._serialize_query(query) if query else None
         body = self._build_body(payload) if payload else None
         headers = self._build_headers(url, body, pupil_id)
 
         try:
             response = await self._client.request(
-                method=method, url=url, data=body, headers=headers
+                method=method,
+                url=url,
+                params=params,
+                data=body,
+                headers=headers
             )
         except Exception as exception:
             raise FailedRequestException(exception)
